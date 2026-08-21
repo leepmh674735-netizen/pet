@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetBacked Magical World</title>
+    <!-- Cute Rounded Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(45deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            --rainbow-1: #ffadad;
+            --rainbow-2: #ffd6a5;
+            --rainbow-3: #fdffb6;
+            --rainbow-4: #caffbf;
+            --rainbow-5: #9bf6ff;
+            --rainbow-6: #a0c4ff;
+            --rainbow-7: #bdb2ff;
+            --rainbow-8: #ffc6ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Fredoka', cursive, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #fff5f5, #f5f7ff, #fff9e6, #f3fff3);
+            background-size: 400% 400%;
+            animation: backgroundFlow 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes backgroundFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Rainbow Sky Header */
+        header {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(90deg, 
+                var(--rainbow-1), var(--rainbow-2), var(--rainbow-3), 
+                var(--rainbow-4), var(--rainbow-5), var(--rainbow-6), 
+                var(--rainbow-7), var(--rainbow-8)
+            );
+            background-size: 200% auto;
+            animation: rainbowFlow 6s linear infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-bottom-left-radius: 50% 12%;
+            border-bottom-right-radius: 50% 12%;
+            box-shadow: 0 10px 30px rgba(189, 178, 255, 0.4);
+            overflow: hidden;
+        }
+
+        @keyframes rainbowFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Floating Clouds in Header */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 100px;
+            filter: blur(1px);
+            animation: floatCloud 20s linear infinite;
+            pointer-events: none;
+            box-shadow: 0 8px 24px rgba(255,255,255,0.4);
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+        }
+
+        .cloud-1 {
+            width: 120px;
+            height: 40px;
+            top: 20%;
+            left: -150px;
+            animation-duration: 25s;
+        }
+        .cloud-1::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+        .cloud-1::after { width: 70px; height: 70px; top: -35px; right: 15px; }
+
+        .cloud-2 {
+            width: 160px;
+            height: 50px;
+            top: 55%;
+            left: -200px;
+            animation-duration: 35s;
+            animation-delay: 5s;
+        }
+        .cloud-2::before { width: 70px; height: 70px; top: -35px; left: 20px; }
+        .cloud-2::after { width: 90px; height: 90px; top: -45px; right: 20px; }
+
+        .cloud-3 {
+            width: 100px;
+            height: 35px;
+            top: 10%;
+            left: -120px;
+            animation-duration: 18s;
+            animation-delay: 10s;
+        }
+        .cloud-3::before { width: 40px; height: 40px; top: -20px; left: 10px; }
+        .cloud-3::after { width: 55px; height: 55px; top: -25px; right: 10px; }
+
+        @keyframes floatCloud {
+            0% { transform: translateX(-10%); left: -200px; }
+            100% { transform: translateX(110vw); left: 100%; }
+        }
+
+        /* Title & Magic Sparkles */
+        .title-container {
+            text-align: center;
+            z-index: 10;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #ffffff;
+            font-weight: 800;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+                         0 0 20px rgba(255, 255, 255, 0.6);
+            letter-spacing: 2px;
+            animation: bounceText 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounceText {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-10px) scale(1.03); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 500;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 5px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        /* Main Mascot Character Container */
+        .mascot-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: -80px auto 40px auto;
+            position: relative;
+            z-index: 20;
+            max-width: 500px;
+        }
+
+        /* The SVG Mascot styling */
+        .mascot-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 40px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(160, 196, 255, 0.25);
+            border: 4px solid #ffffff;
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mascot-card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 30px 50px rgba(160, 196, 255, 0.4);
+        }
+
+        .mascot-svg-wrapper {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        /* SVG Interactive Mascot Pippo */
+        #pippo-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        }
+
+        .ear-left {
+            transform-origin: 65px 75px;
+            animation: wiggleLeftEar 4s ease-in-out infinite alternate;
+        }
+        .ear-right {
+            transform-origin: 135px 75px;
+            animation: wiggleRightEar 4s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes wiggleLeftEar {
+            0%, 90% { transform: rotate(0deg); }
+            95% { transform: rotate(-8deg); }
+            100% { transform: rotate(4deg); }
+        }
+
+        @keyframes wiggleRightEar {
+            0%, 90% { transform: rotate(0deg); }
+            95% { transform: rotate(8deg); }
+            100% { transform: rotate(-4deg); }
+        }
+
+        /* Eye blink animation */
+        .eye-bg {
+            animation: blink 5s infinite;
+            transform-origin: center;
+        }
+
+        @keyframes blink {
+            0%, 96%, 100% { transform: scaleY(1); }
+            98% { transform: scaleY(0.05); }
+        }
+
+        /* Speech Bubble */
+        .bubble {
+            position: relative;
+            background: #ffffff;
+            border: 3px solid var(--rainbow-6);
+            border-radius: 25px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 320px;
+            animation: floatBubble 3s ease-in-out infinite alternate;
+        }
+
+        .bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 15px 15px 0;
+            border-style: solid;
+            border-color: #ffffff transparent;
+            display: block;
+            width: 0;
+        }
+
+        .bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -19px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 17px 17px 0;
+            border-style: solid;
+            border-color: var(--rainbow-6) transparent;
+            display: block;
+            width: 0;
+            z-index: -1;
+        }
+
+        @keyframes floatBubble {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* Main Content Grid */
+        main {
+            max-width: 1000px;
+            margin: 20px auto 80px auto;
+            padding: 0 20px;
+        }
+
+        .intro-text {
+            text-align: center;
+            color: #555555;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            border: 3px dashed var(--rainbow-1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        }
+
+        /* Feature Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 35px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:nth-child(1) { border-color: var(--rainbow-1); }
+        .card:nth-child(2) { border-color: var(--rainbow-6); }
+        .card:nth-child(3) { border-color: var(--rainbow-7); }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounceIcon 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounceIcon {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Interactive Magic Button */
+        .magic-btn {
+            background: linear-gradient(45deg, #ff9a9e, #ffc6ff, #a0c4ff, #9bf6ff);
+            background-size: 300% 300%;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 154, 158, 0.4);
+            transition: all 0.3s ease;
+            animation: rainbowFlow 4s ease infinite;
+        }
+
+        .magic-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 25px rgba(255, 154, 158, 0.6);
+        }
+
+        .magic-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Interactive Playground / Guestbook */
+        .playground-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            border: 4px solid #ffffff;
+        }
+
+        .playground-section h2 {
+            font-size: 2rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .playground-section h2::after {
+            content: '🎈';
+            margin-left: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            border: 3px solid #f0f0f0;
+            border-radius: 25px;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--rainbow-6);
+            background: #ffffff;
+            box-shadow: 0 0 12px rgba(160, 196, 255, 0.2);
+        }
+
+        .guestbook-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .guestbook-item {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 15px 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--rainbow-5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .guestbook-item:nth-child(even) {
+            border-left-color: var(--rainbow-8);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .msg-text {
+            color: #4a4a4a;
+            font-weight: 500;
+        }
+
+        .msg-time {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        /* Sparkle particles */
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            background: radial-gradient(circle, #fff 10%, rgba(255,255,255,0) 80%);
+            border-radius: 50%;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: fadeOutParticle 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeOutParticle {
+            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0) rotate(180deg); opacity: 0; }
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+            border-top: 2px dashed #eee;
+            margin-top: 60px;
+        }
+
+        footer span {
+            color: var(--rainbow-1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Clouds Background -->
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+
+    <!-- Sky Rainbow Header -->
+    <header>
+        <div class="title-container">
+            <h1>PetBacked World</h1>
+            <div class="subtitle">마법과 무지개가 가득한 동물의 세계 🌈✨</div>
+        </div>
+    </header>
+
+    <!-- Mascot Pippo Section -->
+    <section class="mascot-section">
+        <div class="bubble" id="pippo-bubble">안녕! 내 이름은 삐뽀야! 나를 클릭해서 마법을 터뜨려봐! 🐶</div>
+        <div class="mascot-card" id="pippo-card">
+            <div class="mascot-svg-wrapper">
+                <svg id="pippo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Head Background / Shadow -->
+                    <circle cx="100" cy="115" r="50" fill="#f4ece1" />
+                    <ellipse cx="100" cy="120" rx="55" ry="45" fill="#fcf6ec" />
+
+                    <!-- Ears -->
+                    <g class="ear-left">
+                        <path d="M 55 90 C 25 80, 20 150, 45 150 C 65 150, 65 95, 55 90 Z" fill="#bfae96" />
+                        <path d="M 53 95 C 32 88, 28 140, 43 140 C 58 140, 58 100, 53 95 Z" fill="#ffb4b4" opacity="0.6" />
+                    </g>
+                    <g class="ear-right">
+                        <path d="M 145 90 C 175 80, 180 150, 155 150 C 135 150, 135 95, 145 90 Z" fill="#bfae96" />
+                        <path d="M 147 95 C 168 88, 172 140, 157 140 C 142 140, 142 100, 147 95 Z" fill="#ffb4b4" opacity="0.6" />
+                    </g>
+
+                    <!-- Cute Cheek Blushes -->
+                    <ellipse cx="62" cy="128" rx="8" ry="5" fill="#ff9999" opacity="0.6" />
+                    <ellipse cx="138" cy="128" rx="8" ry="5" fill="#ff9999" opacity="0.6" />
+
+                    <!-- Eyes -->
+                    <g id="eyes">
+                        <!-- Left Eye -->
+                        <circle cx="78" cy="115" r="9" fill="#2d2d2d" class="eye-bg" />
+                        <!-- Right Eye -->
+                        <circle cx="122" cy="115" r="9" fill="#2d2d2d" class="eye-bg" />
+                        
+                        <!-- Puppils (Mouse Tracker) -->
+                        <g id="pupils">
+                            <!-- Left Pupil Highlights -->
+                            <circle id="pupil-left" cx="80" cy="113" r="4" fill="#ffffff" />
+                            <circle cx="76" cy="117" r="1.5" fill="#ffffff" />
+                            <!-- Right Pupil Highlights -->
+                            <circle id="pupil-right" cx="124" cy="113" r="4" fill="#ffffff" />
+                            <circle cx="120" cy="117" r="1.5" fill="#ffffff" />
+                        </g>
+                    </g>
+
+                    <!-- Cute Nose & Mouth -->
+                    <ellipse cx="100" cy="127" rx="7" ry="4" fill="#42332c" />
+                    <path d="M 94 132 C 96 137, 100 137, 100 132 C 100 137, 104 137, 106 132" stroke="#42332c" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Section -->
+    <main>
+        <!-- Welcome Message -->
+        <div class="intro-text">
+            🌟 <strong>반갑습니다!</strong> 이곳은 당신의 반려동물 친구들이 행복하고 건강하게 보낼 수 있도록 마법 같은 서비스를 제공하는 <strong>PetBacked Magical World</strong>입니다. 귀여운 삐뽀를 클릭해서 무지개빛 마법 효과를 내보거나, 아래 방명록에 발자국을 남기고 놀아보세요!
+        </div>
+
+        <!-- Features -->
+        <div class="cards-grid">
+            <!-- Card 1 -->
+            <div class="card">
+                <span class="card-icon">🐾</span>
+                <h3>신나는 산책 메이트</h3>
+                <p>매일 매일 기상청 데이터를 연동하여 우리 댕댕이에게 가장 안전하고 시원한 산책 시간을 추천합니다!</p>
+                <button class="magic-btn" onclick="triggerMagic(event)">마법 발사!</button>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <span class="card-icon">🩺</span>
+                <h3>AI 건강 수호신</h3>
+                <p>강아지의 피부 상태나 이상 행동을 분석하여 어떤 진료가 필요할지 정확하게 가이드해 줄게요.</p>
+                <button class="magic-btn" onclick="triggerMagic(event)">마법 발사!</button>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <span class="card-icon">💬</span>
+                <h3>동물들의 수다방</h3>
+                <p>우리 동네 다른 반려인들과 연결되어 실시간 정보와 자랑거리를 마음껏 뽐낼 수 있는 챗룸을 열어보세요!</p>
+                <button class="magic-btn" onclick="triggerMagic(event)">마법 발사!</button>
+            </div>
+        </div>
+
+        <!-- Interactive Playground / Guestbook -->
+        <section class="playground-section">
+            <h2>방명록에 마법의 흔적 남기기</h2>
+            <div class="input-group">
+                <input type="text" id="guestbook-input" placeholder="삐뽀와 동물들에게 귀여운 한마디를 입력해보세요! (엔터 입력)" onkeydown="if(event.key === 'Enter') addMessage()">
+                <button class="magic-btn" onclick="addMessage()">글 남기기 ✏️</button>
+            </div>
+            
+            <div class="guestbook-list" id="guestbook-list">
+                <div class="guestbook-item">
+                    <span class="msg-text">🐶 삐뽀야 꼬리 흔드는 거 너무 귀엽다!</span>
+                    <span class="msg-time">방금 전</span>
+                </div>
+                <div class="guestbook-item">
+                    <span class="msg-text">🐱 우리 집 야옹이와 매일 구경 오고 있어요~</span>
+                    <span class="msg-time">5분 전</span>
+                </div>
+                <div class="guestbook-item">
+                    <span class="msg-text">🌈 무지개빛 화면이 너무 예뻐서 힐링 되네요!</span>
+                    <span class="msg-time">10분 전</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with <span>♥</span> by PetBacked Magic Developer. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Mascot speech responses
+        const replies = [
+            "우와! 마법이다! 🌟",
+            "간지러워요! 히힛! 🐶",
+            "무지개 별을 더 모아봐요! 🌈",
+            "멍멍! 삐뽀는 기분 최고! ✨",
+            "방명록에 발자국도 꾹 남겨줘요!🐾",
+            "하늘에 구름이 둥실둥실~☁️"
+        ];
+
+        // 1. Mouse Follower Eye Animation
+        const eyesContainer = document.getElementById('eyes');
+        const pupilLeft = document.getElementById('pupil-left');
+        const pupilRight = document.getElementById('pupil-right');
+        const mascotCard = document.getElementById('pippo-card');
+
+        document.addEventListener('mousemove', (e) => {
+            const rect = mascotCard.getBoundingClientRect();
+            // Mascot card center coordinates
+            const cardX = rect.left + rect.width / 2;
+            const cardY = rect.top + rect.height / 2;
+
+            // Angle from mascot center to mouse cursor
+            const angle = Math.atan2(e.clientY - cardY, e.clientX - cardX);
+            
+            // Limit distance of pupil movement
+            const dist = 3.5; 
+            const moveX = Math.cos(angle) * dist;
+            const moveY = Math.sin(angle) * dist;
+
+            // Apply translation to left & right pupils
+            pupilLeft.setAttribute('cx', (80 + moveX).toString());
+            pupilLeft.setAttribute('cy', (113 + moveY).toString());
+            pupilRight.setAttribute('cx', (124 + moveX).toString());
+            pupilRight.setAttribute('cy', (113 + moveY).toString());
+
+            // 2. Rainbow trail generator
+            createRainbowSparkle(e.clientX, e.clientY);
+        });
+
+        // 2. Sparkle trail effect
+        function createRainbowSparkle(x, y) {
+            // Generate sparkling stars occasionally to avoid lag
+            if (Math.random() > 0.15) return;
+
+            const colors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y + window.scrollY}px`;
+            sparkle.style.width = sparkle.style.height = `${Math.random() * 12 + 6}px`;
+            sparkle.style.backgroundColor = randomColor;
+            sparkle.style.boxShadow = `0 0 10px ${randomColor}, 0 0 20px ${randomColor}`;
+
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 800);
+        }
+
+        // 3. Click Mascot interactions
+        mascotCard.addEventListener('click', (e) => {
+            // Speech bubble message change
+            const bubble = document.getElementById('pippo-bubble');
+            const randomReply = replies[Math.floor(Math.random() * replies.length)];
+            bubble.innerText = randomReply;
+
+            // Trigger burst of rainbow sparkles at click location
+            burstConfetti(e.clientX, e.clientY);
+        });
+
+        function triggerMagic(e) {
+            e.stopPropagation(); // Avoid triggering card click handler
+            const rect = e.target.getBoundingClientRect();
+            burstConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        }
+
+        // Burst magic stars from a point
+        function burstConfetti(x, y) {
+            const count = 30;
+            const colors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'];
+
+            for (let i = 0; i < count; i++) {
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                const particle = document.createElement('div');
+                particle.classList.add('sparkle');
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y + window.scrollY}px`;
+                
+                // Random scale & size
+                const size = Math.random() * 16 + 8;
+                particle.style.width = particle.style.height = `${size}px`;
+                particle.style.backgroundColor = randomColor;
+                particle.style.boxShadow = `0 0 10px ${randomColor}, 0 0 20px ${randomColor}`;
+                
+                // Animated velocity trajectory using CSS transitions or standard styling
+                document.body.appendChild(particle);
+
+                // Math to explode outward
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 150 + 50;
+                const destX = Math.cos(angle) * speed;
+                const destY = Math.sin(angle) * speed;
+
+                particle.animate([
+                    { transform: `translate(-50%, -50%) scale(1) translate(0px, 0px)` },
+                    { transform: `translate(-50%, -50%) scale(0) translate(${destX}px, ${destY}px) rotate(360deg)` }
+                ], {
+                    duration: 1000 + Math.random() * 500,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)',
+                    fill: 'forwards'
+                });
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 1500);
+            }
+        }
+
+        // 4. Guestbook messages
+        function addMessage() {
+            const input = document.getElementById('guestbook-input');
+            const list = document.getElementById('guestbook-list');
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            // Create new message item
+            const item = document.createElement('div');
+            item.classList.add('guestbook-item');
+
+            const textSpan = document.createElement('span');
+            textSpan.classList.add('msg-text');
+            textSpan.innerText = "🐾 " + text;
+
+            const timeSpan = document.createElement('span');
+            timeSpan.classList.add('msg-time');
+            timeSpan.innerText = "방금 전";
+
+            item.appendChild(textSpan);
+            item.appendChild(timeSpan);
+
+            // Prepend to list
+            list.insertBefore(item, list.firstChild);
+
+            // Clear input
+            input.value = "";
+
+            // Magic confetti on submit button
+            const rect = input.getBoundingClientRect();
+            burstConfetti(rect.right, rect.top + rect.height / 2);
+        }
+    </script>
+</body>
+</html>
