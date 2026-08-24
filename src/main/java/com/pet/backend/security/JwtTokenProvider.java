@@ -21,7 +21,11 @@ public class JwtTokenProvider {
 	private final long expirationMs;
 
 	public JwtTokenProvider(JwtProperties properties) {
-		this.key = Keys.hmacShaKeyFor(properties.secret().getBytes(StandardCharsets.UTF_8));
+		byte[] secretBytes = properties.secret().getBytes(StandardCharsets.UTF_8);
+		if (secretBytes.length < 64) {
+			throw new IllegalStateException("Secret key must be at least 64 bytes, but was " + secretBytes.length + " bytes.");
+		}
+		this.key = Keys.hmacShaKeyFor(secretBytes);
 		this.expirationMs = properties.expirationMs();
 	}
 
