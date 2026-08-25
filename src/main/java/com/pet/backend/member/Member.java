@@ -76,11 +76,11 @@ public class Member {
 	}
 
 	public static Member createLocalMember(String email, String encodePassword, String name) {
-		return new Member(email, encodePassword, name, Role.MEBER, Provider.LOCAL, null);
+		return new Member(email, encodePassword, name, Role.MEMBER, Provider.LOCAL, null);
 	}
 
 	public static Member createKakaoMember(String email, String name, String providerId) {
-		return new Member(email, null, name, Role.MEBER, Provider.KAKAO, providerId);
+		return new Member(email, null, name, Role.MEMBER, Provider.KAKAO, providerId);
 	}
 
 	public void changePassword(String encodedPasword) {
