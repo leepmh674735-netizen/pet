@@ -5,10 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PetBacked Magical World</title>
     <!-- Cute Rounded Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Rainbow theme default */
             --primary-gradient: linear-gradient(45deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            --theme-color: #a0c4ff;
+            --text-color: #4a4a4a;
+            --bg-gradient: linear-gradient(-45deg, #fff5f5, #f5f7ff, #fff9e6, #f3fff3);
+            --border-color: #bdb2ff;
+            --card-hover-border: #ffc6ff;
+            
             --rainbow-1: #ffadad;
             --rainbow-2: #ffd6a5;
             --rainbow-3: #fdffb6;
@@ -19,21 +26,51 @@
             --rainbow-8: #ffc6ff;
         }
 
+        /* Theme Overrides */
+        body.theme-shiro {
+            --primary-gradient: linear-gradient(45deg, #ffe066 0%, #f7e1a0 100%);
+            --theme-color: #ff9f43;
+            --text-color: #5d4037;
+            --bg-gradient: linear-gradient(-45deg, #fffbeb, #fef3c7, #fff7ed, #fffbeb);
+            --border-color: #f59e0b;
+            --card-hover-border: #fbbf24;
+        }
+
+        body.theme-doraemon {
+            --primary-gradient: linear-gradient(45deg, #38bdf8 0%, #bae6fd 100%);
+            --theme-color: #0284c7;
+            --text-color: #1e293b;
+            --bg-gradient: linear-gradient(-45deg, #f0f9ff, #e0f2fe, #f8fafc, #f0f9ff);
+            --border-color: #0ea5e9;
+            --card-hover-border: #38bdf8;
+        }
+
+        body.theme-hachuping {
+            --primary-gradient: linear-gradient(45deg, #f472b6 0%, #fbcfe8 100%);
+            --theme-color: #db2777;
+            --text-color: #4c0519;
+            --bg-gradient: linear-gradient(-45deg, #fdf2f8, #fce7f3, #faf5ff, #fdf2f8);
+            --border-color: #f43f5e;
+            --card-hover-border: #fda4af;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Fredoka', cursive, sans-serif;
+            font-family: 'Fredoka', 'Nanum Gothic Coding', cursive, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: linear-gradient(-45deg, #fff5f5, #f5f7ff, #fff9e6, #f3fff3);
+            background: var(--bg-gradient);
             background-size: 400% 400%;
             animation: backgroundFlow 15s ease infinite;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            color: var(--text-color);
+            transition: background 0.8s ease, color 0.5s ease;
         }
 
         @keyframes backgroundFlow {
@@ -42,215 +79,163 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Rainbow Sky Header */
+        /* Floating Items in Background */
+        .floater {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.15;
+            animation: floatUpDown 8s ease-in-out infinite alternate;
+            z-index: 1;
+            font-size: 1.5rem;
+        }
+
+        @keyframes floatUpDown {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-30px) rotate(15deg); }
+        }
+
+        /* Header */
         header {
             position: relative;
             width: 100%;
-            height: 380px;
-            background: linear-gradient(90deg, 
-                var(--rainbow-1), var(--rainbow-2), var(--rainbow-3), 
-                var(--rainbow-4), var(--rainbow-5), var(--rainbow-6), 
-                var(--rainbow-7), var(--rainbow-8)
-            );
+            height: 320px;
+            background: var(--primary-gradient);
             background-size: 200% auto;
-            animation: rainbowFlow 6s linear infinite;
+            animation: headerFlow 6s linear infinite;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-bottom-left-radius: 50% 12%;
-            border-bottom-right-radius: 50% 12%;
-            box-shadow: 0 10px 30px rgba(189, 178, 255, 0.4);
+            border-bottom-left-radius: 50% 10%;
+            border-bottom-right-radius: 50% 10%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            transition: background 0.8s ease;
         }
 
-        @keyframes rainbowFlow {
+        @keyframes headerFlow {
             0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
         }
 
-        /* Floating Clouds in Header */
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 100px;
-            filter: blur(1px);
-            animation: floatCloud 20s linear infinite;
-            pointer-events: none;
-            box-shadow: 0 8px 24px rgba(255,255,255,0.4);
-        }
-
-        .cloud::before, .cloud::after {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-        }
-
-        .cloud-1 {
-            width: 120px;
-            height: 40px;
-            top: 20%;
-            left: -150px;
-            animation-duration: 25s;
-        }
-        .cloud-1::before { width: 50px; height: 50px; top: -25px; left: 15px; }
-        .cloud-1::after { width: 70px; height: 70px; top: -35px; right: 15px; }
-
-        .cloud-2 {
-            width: 160px;
-            height: 50px;
-            top: 55%;
-            left: -200px;
-            animation-duration: 35s;
-            animation-delay: 5s;
-        }
-        .cloud-2::before { width: 70px; height: 70px; top: -35px; left: 20px; }
-        .cloud-2::after { width: 90px; height: 90px; top: -45px; right: 20px; }
-
-        .cloud-3 {
-            width: 100px;
-            height: 35px;
-            top: 10%;
-            left: -120px;
-            animation-duration: 18s;
-            animation-delay: 10s;
-        }
-        .cloud-3::before { width: 40px; height: 40px; top: -20px; left: 10px; }
-        .cloud-3::after { width: 55px; height: 55px; top: -25px; right: 10px; }
-
-        @keyframes floatCloud {
-            0% { transform: translateX(-10%); left: -200px; }
-            100% { transform: translateX(110vw); left: 100%; }
-        }
-
-        /* Title & Magic Sparkles */
         .title-container {
             text-align: center;
             z-index: 10;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
         }
 
         h1 {
             font-size: 3.5rem;
             color: #ffffff;
             font-weight: 800;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
-                         0 0 20px rgba(255, 255, 255, 0.6);
-            letter-spacing: 2px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            letter-spacing: 1px;
             animation: bounceText 2s ease-in-out infinite alternate;
         }
 
         @keyframes bounceText {
             0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-10px) scale(1.03); }
+            100% { transform: translateY(-8px) scale(1.02); }
         }
 
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #ffffff;
-            font-weight: 500;
-            margin-top: 10px;
+            font-weight: 600;
+            margin-top: 12px;
             background: rgba(255, 255, 255, 0.25);
-            padding: 5px 20px;
+            padding: 6px 24px;
             border-radius: 30px;
             display: inline-block;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* Main Mascot Character Container */
+        /* Mascot Character Navigator */
+        .mascot-navigator {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: -35px auto 10px auto;
+            position: relative;
+            z-index: 30;
+            max-width: 500px;
+            padding: 0 15px;
+        }
+
+        .nav-btn {
+            background: white;
+            border: 3px solid #f0f0f0;
+            border-radius: 50%;
+            width: 65px;
+            height: 65px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.15) translateY(-5px);
+            border-color: var(--theme-color);
+        }
+
+        .nav-btn.active {
+            border-color: var(--theme-color);
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            transform: scale(1.2) translateY(-8px);
+        }
+
+        .nav-btn::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #666;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-btn.active::after, .nav-btn:hover::after {
+            opacity: 1;
+        }
+
+        /* Character Mascot Container */
         .mascot-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: -80px auto 40px auto;
+            margin: 20px auto 40px auto;
             position: relative;
             z-index: 20;
             max-width: 500px;
         }
 
-        /* The SVG Mascot styling */
-        .mascot-card {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 40px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(160, 196, 255, 0.25);
-            border: 4px solid #ffffff;
-            backdrop-filter: blur(15px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .mascot-card:hover {
-            transform: translateY(-8px) rotate(1deg);
-            box-shadow: 0 30px 50px rgba(160, 196, 255, 0.4);
-        }
-
-        .mascot-svg-wrapper {
-            width: 200px;
-            height: 200px;
-            position: relative;
-        }
-
-        /* SVG Interactive Mascot Pippo */
-        #pippo-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-        }
-
-        .ear-left {
-            transform-origin: 65px 75px;
-            animation: wiggleLeftEar 4s ease-in-out infinite alternate;
-        }
-        .ear-right {
-            transform-origin: 135px 75px;
-            animation: wiggleRightEar 4s ease-in-out infinite alternate-reverse;
-        }
-
-        @keyframes wiggleLeftEar {
-            0%, 90% { transform: rotate(0deg); }
-            95% { transform: rotate(-8deg); }
-            100% { transform: rotate(4deg); }
-        }
-
-        @keyframes wiggleRightEar {
-            0%, 90% { transform: rotate(0deg); }
-            95% { transform: rotate(8deg); }
-            100% { transform: rotate(-4deg); }
-        }
-
-        /* Eye blink animation */
-        .eye-bg {
-            animation: blink 5s infinite;
-            transform-origin: center;
-        }
-
-        @keyframes blink {
-            0%, 96%, 100% { transform: scaleY(1); }
-            98% { transform: scaleY(0.05); }
-        }
-
-        /* Speech Bubble */
         .bubble {
             position: relative;
             background: #ffffff;
-            border: 3px solid var(--rainbow-6);
+            border: 3px solid var(--border-color);
             border-radius: 25px;
-            padding: 15px 25px;
+            padding: 18px 24px;
             margin-bottom: 25px;
             font-size: 1.1rem;
             color: #4a4a4a;
-            font-weight: 600;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             text-align: center;
-            max-width: 320px;
+            max-width: 380px;
             animation: floatBubble 3s ease-in-out infinite alternate;
+            transition: border-color 0.5s ease;
         }
 
         .bubble::after {
@@ -274,15 +259,104 @@
             transform: translateX(-50%);
             border-width: 17px 17px 0;
             border-style: solid;
-            border-color: var(--rainbow-6) transparent;
+            border-color: var(--border-color) transparent;
             display: block;
             width: 0;
             z-index: -1;
+            transition: border-color 0.5s ease;
         }
 
         @keyframes floatBubble {
             0% { transform: translateY(0); }
             100% { transform: translateY(-8px); }
+        }
+
+        .mascot-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 40px;
+            padding: 25px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.05);
+            border: 4px solid #ffffff;
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+            width: 250px;
+            height: 250px;
+        }
+
+        .mascot-card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .mascot-svg-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .mascot-svg-wrapper svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .mascot-svg-wrapper svg.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        /* SVG Animations */
+        .ear-left {
+            transform-origin: 65px 75px;
+            animation: wiggleLeftEar 4s ease-in-out infinite alternate;
+        }
+        .ear-right {
+            transform-origin: 135px 75px;
+            animation: wiggleRightEar 4s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes wiggleLeftEar {
+            0%, 90% { transform: rotate(0deg); }
+            95% { transform: rotate(-8deg); }
+            100% { transform: rotate(4deg); }
+        }
+
+        @keyframes wiggleRightEar {
+            0%, 90% { transform: rotate(0deg); }
+            95% { transform: rotate(8deg); }
+            100% { transform: rotate(-4deg); }
+        }
+
+        .eye-bg {
+            animation: blink 6s infinite;
+            transform-origin: center;
+        }
+
+        @keyframes blink {
+            0%, 95%, 100% { transform: scaleY(1); }
+            97.5% { transform: scaleY(0.05); }
+        }
+
+        /* Hachuping crown animation */
+        #hachuping-svg {
+            animation: slowFloat 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-5px); }
         }
 
         /* Main Content Grid */
@@ -295,14 +369,15 @@
         .intro-text {
             text-align: center;
             color: #555555;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             line-height: 1.8;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             background: white;
             padding: 30px;
             border-radius: 30px;
-            border: 3px dashed var(--rainbow-1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            border: 3px dashed var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.01);
+            transition: border-color 0.5s ease;
         }
 
         /* Feature Cards Grid */
@@ -318,20 +393,17 @@
             border-radius: 35px;
             padding: 35px 25px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
             border: 3px solid transparent;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .card:nth-child(1) { border-color: var(--rainbow-1); }
-        .card:nth-child(2) { border-color: var(--rainbow-6); }
-        .card:nth-child(3) { border-color: var(--rainbow-7); }
-
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: var(--card-hover-border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
         }
 
         .card-icon {
@@ -347,8 +419,8 @@
         }
 
         .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
             color: #333;
         }
 
@@ -361,27 +433,154 @@
 
         /* Interactive Magic Button */
         .magic-btn {
-            background: linear-gradient(45deg, #ff9a9e, #ffc6ff, #a0c4ff, #9bf6ff);
-            background-size: 300% 300%;
+            background: var(--primary-gradient);
+            background-size: 200% auto;
             border: none;
             padding: 12px 30px;
             border-radius: 50px;
             color: white;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 154, 158, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
-            animation: rainbowFlow 4s ease infinite;
         }
 
         .magic-btn:hover {
             transform: scale(1.08);
-            box-shadow: 0 15px 25px rgba(255, 154, 158, 0.6);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
         }
 
         .magic-btn:active {
             transform: scale(0.96);
+        }
+
+        /* Magic Pocket (Doraemon style) Drawer Section */
+        .magic-pocket-section {
+            background: #ffffff;
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+            border: 4px solid #ffffff;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .magic-pocket-section h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pocket-container {
+            width: 140px;
+            height: 100px;
+            margin: 20px auto;
+            position: relative;
+            cursor: pointer;
+            animation: pocketFloat 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes pocketFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* Draw Pocket Shape */
+        .pocket-shape {
+            width: 100%;
+            height: 100%;
+            background: #e0f2fe;
+            border: 4px solid #0ea5e9;
+            border-bottom-left-radius: 70px 100px;
+            border-bottom-right-radius: 70px 100px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
+            transition: transform 0.2s;
+        }
+
+        .pocket-shape::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background: #ffffff;
+            border-bottom: 4px solid #0ea5e9;
+        }
+
+        .pocket-container:hover .pocket-shape {
+            transform: scale(1.08);
+            background: #bae6fd;
+        }
+
+        .pocket-container:active .pocket-shape {
+            transform: scale(0.95);
+        }
+
+        /* Red Bell tag on pocket */
+        .pocket-bell {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+            background: #fbbf24;
+            border: 2.5px solid #1e293b;
+            border-radius: 50%;
+            z-index: 5;
+        }
+
+        .item-display-card {
+            background: var(--bg-gradient);
+            border: 3px solid var(--border-color);
+            border-radius: 25px;
+            padding: 20px;
+            max-width: 320px;
+            margin: 20px auto 0 auto;
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .item-display-card.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .item-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: spinItem 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes spinItem {
+            0% { transform: scale(0) rotate(-180deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        .item-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .item-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
         }
 
         /* Interactive Playground / Guestbook */
@@ -389,21 +588,15 @@
             background: rgba(255, 255, 255, 0.9);
             border-radius: 40px;
             padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
             border: 4px solid #ffffff;
         }
 
         .playground-section h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #333;
             text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .playground-section h2::after {
-            content: '🎈';
-            margin-left: 10px;
+            margin-bottom: 25px;
         }
 
         .input-group {
@@ -417,16 +610,16 @@
             border: 3px solid #f0f0f0;
             border-radius: 25px;
             padding: 15px 25px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             outline: none;
             transition: all 0.3s;
             background: #fafafa;
         }
 
         input[type="text"]:focus {
-            border-color: var(--rainbow-6);
+            border-color: var(--theme-color);
             background: #ffffff;
-            box-shadow: 0 0 12px rgba(160, 196, 255, 0.2);
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
         }
 
         .guestbook-list {
@@ -442,16 +635,13 @@
             background: #ffffff;
             border-radius: 20px;
             padding: 15px 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-            border-left: 5px solid var(--rainbow-5);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.01);
+            border-left: 5px solid var(--theme-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
             animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .guestbook-item:nth-child(even) {
-            border-left-color: var(--rainbow-8);
+            transition: border-left-color 0.5s ease;
         }
 
         @keyframes popIn {
@@ -461,7 +651,7 @@
 
         .msg-text {
             color: #4a4a4a;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .msg-time {
@@ -496,31 +686,40 @@
         }
 
         footer span {
-            color: var(--rainbow-1);
+            color: #ff9a9e;
         }
     </style>
 </head>
 <body>
 
-    <!-- Floating Clouds Background -->
-    <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
-    <div class="cloud cloud-3"></div>
+    <!-- Floating Items Container -->
+    <div id="floaters-container"></div>
 
-    <!-- Sky Rainbow Header -->
+    <!-- Sky Header -->
     <header>
         <div class="title-container">
             <h1>PetBacked World</h1>
-            <div class="subtitle">마법과 무지개가 가득한 동물의 세계 🌈✨</div>
+            <div class="subtitle">짱구 ⬝ 도라에몽 ⬝ 하츄핑과 함께하는 마법의 펫 월드 🌈✨</div>
         </div>
     </header>
 
+    <!-- Mascot Selection Navigator -->
+    <div class="mascot-navigator">
+        <button class="nav-btn active" data-id="pippo" data-name="삐뽀" onclick="selectMascot('pippo')">🐶</button>
+        <button class="nav-btn" data-id="shiro" data-name="흰둥이" onclick="selectMascot('shiro')">☁️</button>
+        <button class="nav-btn" data-id="doraemon" data-name="도라에몽" onclick="selectMascot('doraemon')">🐱</button>
+        <button class="nav-btn" data-id="hachuping" data-name="하츄핑" onclick="selectMascot('hachuping')">👑</button>
+    </div>
+
     <!-- Mascot Pippo Section -->
     <section class="mascot-section">
-        <div class="bubble" id="pippo-bubble">안녕! 내 이름은 삐뽀야! 나를 클릭해서 마법을 터뜨려봐! 🐶</div>
-        <div class="mascot-card" id="pippo-card">
+        <div class="bubble" id="mascot-bubble">안녕! 내 이름은 삐뽀야! 나를 클릭해서 마법을 터뜨려봐! 🐶</div>
+        
+        <div class="mascot-card" id="mascot-card">
             <div class="mascot-svg-wrapper">
-                <svg id="pippo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- 1. Pippo SVG (Rainbow/Default Mascot) -->
+                <svg id="pippo-svg" class="active" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                     <!-- Head Background / Shadow -->
                     <circle cx="100" cy="115" r="50" fill="#f4ece1" />
                     <ellipse cx="100" cy="120" rx="55" ry="45" fill="#fcf6ec" />
@@ -540,19 +739,13 @@
                     <ellipse cx="138" cy="128" rx="8" ry="5" fill="#ff9999" opacity="0.6" />
 
                     <!-- Eyes -->
-                    <g id="eyes">
-                        <!-- Left Eye -->
+                    <g class="eyes">
                         <circle cx="78" cy="115" r="9" fill="#2d2d2d" class="eye-bg" />
-                        <!-- Right Eye -->
                         <circle cx="122" cy="115" r="9" fill="#2d2d2d" class="eye-bg" />
-                        
-                        <!-- Puppils (Mouse Tracker) -->
-                        <g id="pupils">
-                            <!-- Left Pupil Highlights -->
-                            <circle id="pupil-left" cx="80" cy="113" r="4" fill="#ffffff" />
+                        <g>
+                            <circle id="pippo-pupil-left" cx="80" cy="113" r="4" fill="#ffffff" />
                             <circle cx="76" cy="117" r="1.5" fill="#ffffff" />
-                            <!-- Right Pupil Highlights -->
-                            <circle id="pupil-right" cx="124" cy="113" r="4" fill="#ffffff" />
+                            <circle id="pippo-pupil-right" cx="124" cy="113" r="4" fill="#ffffff" />
                             <circle cx="120" cy="117" r="1.5" fill="#ffffff" />
                         </g>
                     </g>
@@ -561,6 +754,122 @@
                     <ellipse cx="100" cy="127" rx="7" ry="4" fill="#42332c" />
                     <path d="M 94 132 C 96 137, 100 137, 100 132 C 100 137, 104 137, 106 132" stroke="#42332c" stroke-width="2.5" stroke-linecap="round" fill="none" />
                 </svg>
+
+                <!-- 2. Shiro SVG (흰둥이) -->
+                <svg id="shiro-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Body -->
+                    <ellipse cx="100" cy="142" rx="32" ry="28" fill="#ffffff" stroke="#2d2d2d" stroke-width="3" />
+                    <path d="M 80 152 C 70 172, 75 182, 85 177 C 90 172, 85 157, 80 152 Z" fill="#ffffff" stroke="#2d2d2d" stroke-width="2.5" />
+                    <path d="M 120 152 C 130 172, 125 182, 115 177 C 110 172, 115 157, 120 152 Z" fill="#ffffff" stroke="#2d2d2d" stroke-width="2.5" />
+                    <!-- Fluffy Head -->
+                    <path d="M 100 55 C 70 45, 50 65, 55 90 C 45 110, 65 135, 100 135 C 135 135, 155 110, 145 90 C 150 65, 130 45, 100 55 Z" fill="#ffffff" stroke="#2d2d2d" stroke-width="3" />
+                    <!-- Floppy Ears -->
+                    <g class="ear-left">
+                        <path d="M 58 75 C 40 70, 35 105, 50 110 C 62 110, 65 85, 58 75 Z" fill="#ffffff" stroke="#2d2d2d" stroke-width="3" />
+                    </g>
+                    <g class="ear-right">
+                        <path d="M 142 75 C 160 70, 165 105, 150 110 C 138 110, 135 85, 142 75 Z" fill="#ffffff" stroke="#2d2d2d" stroke-width="3" />
+                    </g>
+                    <!-- Collar & Gold Bell -->
+                    <path d="M 75 130 C 85 136, 115 136, 125 130" stroke="#ef4444" stroke-width="6" stroke-linecap="round" fill="none" />
+                    <circle cx="100" cy="135" r="7" fill="#fbbf24" stroke="#2d2d2d" stroke-width="1.5" />
+                    <!-- Cheeks Blush -->
+                    <ellipse cx="68" cy="108" rx="8" ry="5" fill="#ffb4b4" opacity="0.8" />
+                    <ellipse cx="132" cy="108" rx="8" ry="5" fill="#ffb4b4" opacity="0.8" />
+                    <!-- Eyes -->
+                    <g class="eyes">
+                        <circle cx="82" cy="98" r="6" fill="#2d2d2d" class="eye-bg" />
+                        <circle cx="118" cy="98" r="6" fill="#2d2d2d" class="eye-bg" />
+                        <circle id="shiro-pupil-left" cx="83" cy="96" r="2.2" fill="#ffffff" />
+                        <circle id="shiro-pupil-right" cx="119" cy="96" r="2.2" fill="#ffffff" />
+                    </g>
+                    <!-- Nose & Mouth -->
+                    <ellipse cx="100" cy="105" rx="5" ry="3.5" fill="#2d2d2d" />
+                    <path d="M 96 112 C 98 116, 100 116, 100 112 C 100 116, 102 116, 104 112" stroke="#2d2d2d" stroke-width="2" stroke-linecap="round" fill="none" />
+                </svg>
+
+                <!-- 3. Doraemon SVG (도라에몽) -->
+                <svg id="doraemon-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Body -->
+                    <circle cx="100" cy="148" r="42" fill="#38bdf8" stroke="#1e293b" stroke-width="3" />
+                    <circle cx="100" cy="148" r="30" fill="#ffffff" stroke="#1e293b" stroke-width="2" />
+                    <path d="M 82 148 C 82 165, 118 165, 118 148 Z" fill="#ffffff" stroke="#1e293b" stroke-width="2" />
+                    <!-- Head -->
+                    <circle cx="100" cy="92" r="52" fill="#38bdf8" stroke="#1e293b" stroke-width="3" />
+                    <circle cx="100" cy="98" r="42" fill="#ffffff" stroke="#1e293b" stroke-width="2.5" />
+                    <!-- Eyes -->
+                    <g class="eyes">
+                        <ellipse cx="89" cy="70" rx="10" ry="13" fill="#ffffff" stroke="#1e293b" stroke-width="2.5" />
+                        <ellipse cx="111" cy="70" rx="10" ry="13" fill="#ffffff" stroke="#1e293b" stroke-width="2.5" />
+                        <ellipse id="dora-pupil-left" cx="91" cy="72" rx="2.5" ry="4.5" fill="#1e293b" />
+                        <circle cx="91" cy="70" r="0.8" fill="#ffffff" />
+                        <ellipse id="dora-pupil-right" cx="109" cy="72" rx="2.5" ry="4.5" fill="#1e293b" />
+                        <circle cx="109" cy="70" r="0.8" fill="#ffffff" />
+                    </g>
+                    <!-- Nose -->
+                    <circle cx="100" cy="82" r="6.5" fill="#ef4444" stroke="#1e293b" stroke-width="2" />
+                    <circle cx="98" cy="80" r="1.8" fill="#ffffff" />
+                    <!-- Whiskers -->
+                    <line x1="68" y1="90" x2="88" y2="93" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+                    <line x1="66" y1="100" x2="88" y2="100" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+                    <line x1="68" y1="110" x2="88" y2="107" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+                    <line x1="132" y1="90" x2="112" y2="93" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+                    <line x1="134" y1="100" x2="112" y2="100" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+                    <line x1="132" y1="110" x2="112" y2="107" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+                    <!-- Nose-Mouth line & Mouth -->
+                    <line x1="100" y1="88" x2="100" y2="112" stroke="#1e293b" stroke-width="2.5" />
+                    <path d="M 74 106 C 82 124, 118 124, 126 106" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="none" />
+                    <!-- Collar & Bell -->
+                    <path d="M 72 133 C 82 140, 118 140, 128 133" stroke="#ef4444" stroke-width="6.5" stroke-linecap="round" fill="none" />
+                    <circle cx="100" cy="139" r="7.5" fill="#fbbf24" stroke="#1e293b" stroke-width="2" />
+                    <circle cx="100" cy="137" r="1.8" fill="#1e293b" />
+                </svg>
+
+                <!-- 4. Hachuping SVG (하츄핑) -->
+                <svg id="hachuping-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Heart Hair Left -->
+                    <path d="M 65 40 Q 20 25, 25 75 Q 30 110, 75 105 Z" fill="#fda4af" stroke="#be185d" stroke-width="2.5" />
+                    <path d="M 62 45 Q 30 35, 33 75 Q 37 100, 70 97 Z" fill="#fecdd3" opacity="0.6" />
+                    <!-- Heart Hair Right -->
+                    <path d="M 135 40 Q 180 25, 175 75 Q 170 110, 125 105 Z" fill="#fda4af" stroke="#be185d" stroke-width="2.5" />
+                    <path d="M 138 45 Q 170 35, 167 75 Q 163 100, 130 97 Z" fill="#fecdd3" opacity="0.6" />
+                    
+                    <!-- Body -->
+                    <ellipse cx="100" cy="145" rx="26" ry="30" fill="#ffe4e6" stroke="#be185d" stroke-width="2.5" />
+                    <!-- Yellow Heart Emblem -->
+                    <path d="M 100 138 C 96 130, 85 130, 85 140 C 85 150, 100 158, 100 158 C 100 158, 115 150, 115 140 C 115 130, 104 130, 100 138 Z" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5" />
+                    <!-- Hands -->
+                    <circle cx="72" cy="142" r="5" fill="#ffe4e6" stroke="#be185d" stroke-width="2" />
+                    <circle cx="128" cy="142" r="5" fill="#ffe4e6" stroke="#be185d" stroke-width="2" />
+                    
+                    <!-- Head -->
+                    <circle cx="100" cy="92" r="46" fill="#ffe4e6" stroke="#be185d" stroke-width="3" />
+                    
+                    <!-- Princess Crown -->
+                    <path d="M 85 48 L 90 40 L 100 45 L 110 40 L 115 48 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
+                    <circle cx="100" cy="38" r="3" fill="#f43f5e" />
+                    <circle cx="90" cy="36" r="1.8" fill="#3b82f6" />
+                    <circle cx="110" cy="36" r="1.8" fill="#3b82f6" />
+                    
+                    <!-- Sparkling Anime Eyes -->
+                    <g class="eyes">
+                        <ellipse cx="78" cy="94" rx="10" ry="13" fill="#be185d" class="eye-bg" />
+                        <ellipse cx="78" cy="94" rx="8" ry="11" fill="#47185d" />
+                        <circle id="hachu-pupil-left-1" cx="75" cy="88" r="4" fill="#ffffff" />
+                        <circle id="hachu-pupil-left-2" cx="81" cy="98" r="1.5" fill="#ffffff" />
+                        
+                        <ellipse cx="122" cy="94" rx="10" ry="13" fill="#be185d" class="eye-bg" />
+                        <ellipse cx="122" cy="94" rx="8" ry="11" fill="#47185d" />
+                        <circle id="hachu-pupil-right-1" cx="119" cy="88" r="4" fill="#ffffff" />
+                        <circle id="hachu-pupil-right-2" cx="125" cy="98" r="1.5" fill="#ffffff" />
+                    </g>
+                    <!-- Blush -->
+                    <ellipse cx="64" cy="104" rx="8" ry="4" fill="#fda4af" opacity="0.9" />
+                    <ellipse cx="136" cy="104" rx="8" ry="4" fill="#fda4af" opacity="0.9" />
+                    <!-- Mouth -->
+                    <path d="M 97 105 C 99 108, 101 108, 103 105" stroke="#be185d" stroke-width="2" stroke-linecap="round" fill="none" />
+                </svg>
+
             </div>
         </div>
     </section>
@@ -569,7 +878,7 @@
     <main>
         <!-- Welcome Message -->
         <div class="intro-text">
-            🌟 <strong>반갑습니다!</strong> 이곳은 당신의 반려동물 친구들이 행복하고 건강하게 보낼 수 있도록 마법 같은 서비스를 제공하는 <strong>PetBacked Magical World</strong>입니다. 귀여운 삐뽀를 클릭해서 무지개빛 마법 효과를 내보거나, 아래 방명록에 발자국을 남기고 놀아보세요!
+            🌟 <strong>반갑습니다!</strong> 이곳은 반려동물이 행복한 시간을 가질 수 있도록 다채롭고 흥미로운 도구를 지원하는 <strong>PetBacked Magical World</strong>입니다. 상단 네비게이터를 눌러 캐릭터 테마(흰둥이, 도라에몽, 하츄핑)를 전환하고, 캐릭터를 클릭해 귀여운 사운드와 대화를 나눠보세요! 
         </div>
 
         <!-- Features -->
@@ -578,46 +887,63 @@
             <div class="card">
                 <span class="card-icon">🐾</span>
                 <h3>신나는 산책 메이트</h3>
-                <p>매일 매일 기상청 데이터를 연동하여 우리 댕댕이에게 가장 안전하고 시원한 산책 시간을 추천합니다!</p>
-                <button class="magic-btn" onclick="triggerMagic(event)">마법 발사!</button>
+                <p>기상청 날씨 데이터를 정밀 분석하여 우리 반려동물이 가장 시원하고 행복하게 보낼 최적의 산책 시간대를 매칭해 드립니다.</p>
+                <button class="magic-btn" onclick="triggerMagic(event)">마법 효과! 💫</button>
             </div>
 
             <!-- Card 2 -->
             <div class="card">
                 <span class="card-icon">🩺</span>
                 <h3>AI 건강 수호신</h3>
-                <p>강아지의 피부 상태나 이상 행동을 분석하여 어떤 진료가 필요할지 정확하게 가이드해 줄게요.</p>
-                <button class="magic-btn" onclick="triggerMagic(event)">마법 발사!</button>
+                <p>강아지 및 고양이의 피부 외관 분석 및 행동 상태 분석을 통해 전문적인 정보와 올바른 돌봄 솔루션을 안내합니다.</p>
+                <button class="magic-btn" onclick="triggerMagic(event)">마법 효과! 💫</button>
             </div>
 
             <!-- Card 3 -->
             <div class="card">
                 <span class="card-icon">💬</span>
                 <h3>동물들의 수다방</h3>
-                <p>우리 동네 다른 반려인들과 연결되어 실시간 정보와 자랑거리를 마음껏 뽐낼 수 있는 챗룸을 열어보세요!</p>
-                <button class="magic-btn" onclick="triggerMagic(event)">마법 발사!</button>
+                <p>이웃 반려인들과 동네 산책 루트, 간식 직거래, 육아 노하우 등 실시간 이야기와 자랑을 나눌 수 있는 채널을 제공합니다.</p>
+                <button class="magic-btn" onclick="triggerMagic(event)">마법 효과! 💫</button>
             </div>
         </div>
 
+        <!-- Doraemon Magic Pocket drawing section -->
+        <section class="magic-pocket-section">
+            <h2>마법의 주머니 선물 뽑기 🎁</h2>
+            <p>도라에몽의 4차원 주머니에서 우리 댕냥이를 위한 비밀 특수 마법 아이템을 꺼내볼까요?</p>
+            
+            <div class="pocket-container" onclick="drawMagicItem()">
+                <div class="pocket-bell"></div>
+                <div class="pocket-shape"></div>
+            </div>
+            
+            <div class="item-display-card" id="item-card">
+                <span class="item-icon" id="item-icon">🚁</span>
+                <div class="item-name" id="item-name">대나무 헬리콥터 목줄</div>
+                <div class="item-desc" id="item-desc">우리 댕댕이가 공중을 날아 안전하게 공원으로 즉시 날아갈 수 있는 목줄입니다!</div>
+            </div>
+        </section>
+
         <!-- Interactive Playground / Guestbook -->
         <section class="playground-section">
-            <h2>방명록에 마법의 흔적 남기기</h2>
+            <h2>방명록에 귀여운 발자국 남기기 🐾</h2>
             <div class="input-group">
-                <input type="text" id="guestbook-input" placeholder="삐뽀와 동물들에게 귀여운 한마디를 입력해보세요! (엔터 입력)" onkeydown="if(event.key === 'Enter') addMessage()">
-                <button class="magic-btn" onclick="addMessage()">글 남기기 ✏️</button>
+                <input type="text" id="guestbook-input" placeholder="동물 친구들에게 따뜻한 응원의 말이나 글을 입력하세요! (엔터 입력)" onkeydown="if(event.key === 'Enter') addMessage()">
+                <button class="magic-btn" onclick="addMessage()">등록하기 ✏️</button>
             </div>
             
             <div class="guestbook-list" id="guestbook-list">
                 <div class="guestbook-item">
-                    <span class="msg-text">🐶 삐뽀야 꼬리 흔드는 거 너무 귀엽다!</span>
+                    <span class="msg-text">🐶 흰둥아 솜사탕 개인기 보여줘서 너무 고마워츄!</span>
                     <span class="msg-time">방금 전</span>
                 </div>
                 <div class="guestbook-item">
-                    <span class="msg-text">🐱 우리 집 야옹이와 매일 구경 오고 있어요~</span>
+                    <span class="msg-text">🐱 도라에몽 덕분에 댕댕이 데리고 어디로든 문으로 산책 편하게 가요!</span>
                     <span class="msg-time">5분 전</span>
                 </div>
                 <div class="guestbook-item">
-                    <span class="msg-text">🌈 무지개빛 화면이 너무 예뻐서 힐링 되네요!</span>
+                    <span class="msg-text">💖 하츄핑이랑 삐뽀랑 같이 있는 거 보니까 진짜 힐링된다츄!</span>
                     <span class="msg-time">10분 전</span>
                 </div>
             </div>
@@ -630,90 +956,255 @@
     </footer>
 
     <script>
-        // Mascot speech responses
-        const replies = [
-            "우와! 마법이다! 🌟",
-            "간지러워요! 히힛! 🐶",
-            "무지개 별을 더 모아봐요! 🌈",
-            "멍멍! 삐뽀는 기분 최고! ✨",
-            "방명록에 발자국도 꾹 남겨줘요!🐾",
-            "하늘에 구름이 둥실둥실~☁️"
-        ];
+        // Web Audio 8-bit Synth sound synthesizer
+        const CuteAudio = {
+            ctx: null,
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            },
+            playBeep(frequency, duration, type = 'sine') {
+                try {
+                    this.init();
+                    if (this.ctx.state === 'suspended') {
+                        this.ctx.resume();
+                    }
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(frequency, this.ctx.currentTime);
+                    gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.005, this.ctx.currentTime + duration);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + duration);
+                } catch(e) {
+                    console.log("Audio not supported yet", e);
+                }
+            },
+            playSparkle() {
+                let delay = 0;
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 arpeggio
+                notes.forEach((freq, idx) => {
+                    setTimeout(() => {
+                        this.playBeep(freq, 0.15, 'triangle');
+                    }, idx * 60);
+                });
+            },
+            playJump() {
+                try {
+                    this.init();
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(200, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.005, this.ctx.currentTime + 0.2);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.2);
+                } catch(e){}
+            },
+            playChime() {
+                let delay = 0;
+                const notes = [880, 987.77, 1046.50, 1318.51];
+                notes.forEach((freq, idx) => {
+                    setTimeout(() => {
+                        this.playBeep(freq, 0.2, 'sine');
+                    }, idx * 50);
+                });
+            }
+        };
 
-        // 1. Mouse Follower Eye Animation
-        const eyesContainer = document.getElementById('eyes');
-        const pupilLeft = document.getElementById('pupil-left');
-        const pupilRight = document.getElementById('pupil-right');
-        const mascotCard = document.getElementById('pippo-card');
+        // Character configurations & replies
+        const characterData = {
+            pippo: {
+                theme: 'theme-rainbow',
+                bubble: '안녕! 내 이름은 삐뽀야! 나를 클릭해서 마법을 터뜨려봐! 🐶',
+                replies: [
+                    "우와! 마법의 별이 쏟아져요! 🌟",
+                    "간지러워요! 헤헷! 🐶",
+                    "무지개 별을 더 많이 모아봐요! 🌈",
+                    "멍멍! 삐뽀는 오늘 기분이 완전 최고! ✨",
+                    "방명록에 마법의 댕댕이 발자국을 꾹 남겨줘요!🐾"
+                ]
+            },
+            shiro: {
+                theme: 'theme-shiro',
+                bubble: '앙앙! 짱구는 안 오고 대신 친구가 왔네앙? 반갑다앙! ☁️',
+                replies: [
+                    "앙앙! (흰둥이가 솜사탕처럼 몸을 동글동글 말아 올립니다! ☁️)",
+                    "짱구는 또 이슬이 누나 보러 도망갔나앙? 🐶",
+                    "배가 꼬르륵... 맛있는 뼈다귀 모양 개껌 없나앙? 🦴",
+                    "솜사탕 개인기 마음에 들었으면 나랑 꼭 친구 먹자앙! 💕",
+                    "짱구가 초코비 먹는 동안 나도 산책 가고 싶다앙! 🐾"
+                ]
+            },
+            doraemon: {
+                theme: 'theme-doraemon',
+                bubble: '안녕! 나는 도라야끼를 가장 좋아하는 미래 고양이 로봇 도라에몽이야! 💙',
+                replies: [
+                    "진구야! 앗, 진구가 아니네? 가고 싶은 곳은 어디로든 문으로 갈까? 🚪",
+                    "대나무 헬리콥터~! 이걸 머리에 꽂고 하늘로 높이 함께 날아봐! 🚁",
+                    "어디보자... 주머니에서 신기한 도구를 더 꺼내줄게! 🎁",
+                    "역시 피로에는 따끈따끈한 도라야끼(단팥빵)가 제맛이라구! 🥞",
+                    "쥐는 절대 데려오면 안 돼! 으아아아 생각만 해도 소름이 끼쳐! 😱"
+                ]
+            },
+            hachuping: {
+                theme: 'theme-hachuping',
+                bubble: '하츄핑이 사랑을 드려요츄! 당신을 만나서 정말 행복하다츄! 💖',
+                replies: [
+                    "사랑의 하츄 하트 뿅뿅~ 받아라츄! 💖✨",
+                    "반짝이는 눈빛으로 당신을 바라보겠츄! 사랑스럽츄? 💕",
+                    "힘들고 지칠 땐 하츄핑 마법을 떠올려츄! 다 잘 될 거다츄! 🪄",
+                    "마법의 주머니에서 무엇이 나올지 두근두근 기대되츄! 🎁",
+                    "오늘 하루도 나랑 행복하게 보내기로 약속해츄! 하츄하츄~! 👑"
+                ]
+            }
+        };
 
+        let activeMascot = 'pippo';
+
+        // Background floaters spawning based on theme
+        function updateBackgroundFloaters(mascot) {
+            const container = document.getElementById('floaters-container');
+            container.innerHTML = '';
+            
+            let symbols = ['🎈', '🌟', '✨', '🐾'];
+            if (mascot === 'shiro') {
+                symbols = ['🦴', '☁️', '🐶', '⚽'];
+            } else if (mascot === 'doraemon') {
+                symbols = ['🚁', '🔔', '🚪', '🥞'];
+            } else if (mascot === 'hachuping') {
+                symbols = ['💖', '👑', '🎀', '🪄'];
+            }
+
+            const count = 10;
+            for (let i = 0; i < count; i++) {
+                const floater = document.createElement('div');
+                floater.classList.add('floater');
+                floater.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                floater.style.left = `${Math.random() * 90}vw`;
+                floater.style.top = `${Math.random() * 85 + 10}vh`;
+                floater.style.animationDelay = `${Math.random() * 5}s`;
+                floater.style.animationDuration = `${Math.random() * 6 + 6}s`;
+                container.appendChild(floater);
+            }
+        }
+
+        // Change Mascot & Theme
+        function selectMascot(id) {
+            // Remove active classes
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.mascot-svg-wrapper svg').forEach(svg => svg.classList.remove('active'));
+
+            // Set new active mascot
+            activeMascot = id;
+            document.querySelector(`.nav-btn[data-id="${id}"]`).classList.add('active');
+            document.getElementById(`${id}-svg`).classList.add('active');
+
+            // Apply theme class to body
+            const config = characterData[id];
+            document.body.className = '';
+            document.body.classList.add(config.theme);
+
+            // Change bubble speech text
+            document.getElementById('mascot-bubble').innerText = config.bubble;
+
+            // Trigger floaters and cute sound
+            updateBackgroundFloaters(id);
+            CuteAudio.playChime();
+            
+            // Re-render sparklers at top navigators
+            const btnRect = document.querySelector(`.nav-btn[data-id="${id}"]`).getBoundingClientRect();
+            burstConfetti(btnRect.left + btnRect.width/2, btnRect.top + btnRect.height/2);
+        }
+
+        // Mouse Move Eyes Tracker for active SVG
+        const card = document.getElementById('mascot-card');
         document.addEventListener('mousemove', (e) => {
-            const rect = mascotCard.getBoundingClientRect();
-            // Mascot card center coordinates
+            const rect = card.getBoundingClientRect();
             const cardX = rect.left + rect.width / 2;
             const cardY = rect.top + rect.height / 2;
-
-            // Angle from mascot center to mouse cursor
-            const angle = Math.atan2(e.clientY - cardY, e.clientX - cardX);
             
-            // Limit distance of pupil movement
-            const dist = 3.5; 
+            const angle = Math.atan2(e.clientY - cardY, e.clientX - cardX);
+            const dist = 3.5;
             const moveX = Math.cos(angle) * dist;
             const moveY = Math.sin(angle) * dist;
 
-            // Apply translation to left & right pupils
-            pupilLeft.setAttribute('cx', (80 + moveX).toString());
-            pupilLeft.setAttribute('cy', (113 + moveY).toString());
-            pupilRight.setAttribute('cx', (124 + moveX).toString());
-            pupilRight.setAttribute('cy', (113 + moveY).toString());
+            // 1. Pippo pupil positioning
+            if (activeMascot === 'pippo') {
+                document.getElementById('pippo-pupil-left').setAttribute('cx', (80 + moveX).toString());
+                document.getElementById('pippo-pupil-left').setAttribute('cy', (113 + moveY).toString());
+                document.getElementById('pippo-pupil-right').setAttribute('cx', (124 + moveX).toString());
+                document.getElementById('pippo-pupil-right').setAttribute('cy', (113 + moveY).toString());
+            }
+            // 2. Shiro pupil positioning
+            else if (activeMascot === 'shiro') {
+                document.getElementById('shiro-pupil-left').setAttribute('cx', (83 + moveX).toString());
+                document.getElementById('shiro-pupil-left').setAttribute('cy', (96 + moveY).toString());
+                document.getElementById('shiro-pupil-right').setAttribute('cx', (119 + moveX).toString());
+                document.getElementById('shiro-pupil-right').setAttribute('cy', (96 + moveY).toString());
+            }
+            // 3. Doraemon pupil positioning
+            else if (activeMascot === 'doraemon') {
+                document.getElementById('dora-pupil-left').setAttribute('cx', (91 + moveX * 0.8).toString());
+                document.getElementById('dora-pupil-left').setAttribute('cy', (72 + moveY * 0.8).toString());
+                document.getElementById('dora-pupil-right').setAttribute('cx', (109 + moveX * 0.8).toString());
+                document.getElementById('dora-pupil-right').setAttribute('cy', (72 + moveY * 0.8).toString());
+            }
+            // 4. Hachuping pupil positioning
+            else if (activeMascot === 'hachuping') {
+                document.getElementById('hachu-pupil-left-1').setAttribute('cx', (75 + moveX * 0.7).toString());
+                document.getElementById('hachu-pupil-left-1').setAttribute('cy', (88 + moveY * 0.7).toString());
+                document.getElementById('hachu-pupil-left-2').setAttribute('cx', (81 + moveX * 0.5).toString());
+                document.getElementById('hachu-pupil-left-2').setAttribute('cy', (98 + moveY * 0.5).toString());
+                document.getElementById('hachu-pupil-right-1').setAttribute('cx', (119 + moveX * 0.7).toString());
+                document.getElementById('hachu-pupil-right-1').setAttribute('cy', (88 + moveY * 0.7).toString());
+                document.getElementById('hachu-pupil-right-2').setAttribute('cx', (125 + moveX * 0.5).toString());
+                document.getElementById('hachu-pupil-right-2').setAttribute('cy', (98 + moveY * 0.5).toString());
+            }
 
-            // 2. Rainbow trail generator
+            // Create trail occasional sparkles
             createRainbowSparkle(e.clientX, e.clientY);
         });
 
-        // 2. Sparkle trail effect
-        function createRainbowSparkle(x, y) {
-            // Generate sparkling stars occasionally to avoid lag
-            if (Math.random() > 0.15) return;
-
-            const colors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-            const sparkle = document.createElement('div');
-            sparkle.classList.add('sparkle');
-            sparkle.style.left = `${x}px`;
-            sparkle.style.top = `${y + window.scrollY}px`;
-            sparkle.style.width = sparkle.style.height = `${Math.random() * 12 + 6}px`;
-            sparkle.style.backgroundColor = randomColor;
-            sparkle.style.boxShadow = `0 0 10px ${randomColor}, 0 0 20px ${randomColor}`;
-
-            document.body.appendChild(sparkle);
-
-            setTimeout(() => {
-                sparkle.remove();
-            }, 800);
-        }
-
-        // 3. Click Mascot interactions
-        mascotCard.addEventListener('click', (e) => {
-            // Speech bubble message change
-            const bubble = document.getElementById('pippo-bubble');
-            const randomReply = replies[Math.floor(Math.random() * replies.length)];
-            bubble.innerText = randomReply;
-
-            // Trigger burst of rainbow sparkles at click location
+        // Click active mascot card interactions
+        card.addEventListener('click', (e) => {
+            const config = characterData[activeMascot];
+            const randomReply = config.replies[Math.floor(Math.random() * config.replies.length)];
+            document.getElementById('mascot-bubble').innerText = randomReply;
+            
+            CuteAudio.playSparkle();
             burstConfetti(e.clientX, e.clientY);
         });
 
+        // Trigger Magic Confetti on Feature Buttons
         function triggerMagic(e) {
-            e.stopPropagation(); // Avoid triggering card click handler
+            e.stopPropagation();
             const rect = e.target.getBoundingClientRect();
+            CuteAudio.playJump();
             burstConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
         }
 
-        // Burst magic stars from a point
+        // Confetti burst logic
         function burstConfetti(x, y) {
-            const count = 30;
-            const colors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'];
+            const count = 25;
+            let colors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'];
+            
+            // Adjust confetti colors by theme
+            if (activeMascot === 'shiro') {
+                colors = ['#f59e0b', '#fbbf24', '#fef3c7', '#ffffff', '#ffedd5'];
+            } else if (activeMascot === 'doraemon') {
+                colors = ['#0284c7', '#38bdf8', '#7dd3fc', '#e0f2fe', '#ffffff'];
+            } else if (activeMascot === 'hachuping') {
+                colors = ['#db2777', '#f472b6', '#fbcfe8', '#fdf2f8', '#ffffff'];
+            }
 
             for (let i = 0; i < count; i++) {
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -722,18 +1213,15 @@
                 particle.style.left = `${x}px`;
                 particle.style.top = `${y + window.scrollY}px`;
                 
-                // Random scale & size
-                const size = Math.random() * 16 + 8;
+                const size = Math.random() * 14 + 6;
                 particle.style.width = particle.style.height = `${size}px`;
                 particle.style.backgroundColor = randomColor;
-                particle.style.boxShadow = `0 0 10px ${randomColor}, 0 0 20px ${randomColor}`;
+                particle.style.boxShadow = `0 0 8px ${randomColor}, 0 0 16px ${randomColor}`;
                 
-                // Animated velocity trajectory using CSS transitions or standard styling
                 document.body.appendChild(particle);
 
-                // Math to explode outward
                 const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 150 + 50;
+                const speed = Math.random() * 120 + 40;
                 const destX = Math.cos(angle) * speed;
                 const destY = Math.sin(angle) * speed;
 
@@ -741,18 +1229,84 @@
                     { transform: `translate(-50%, -50%) scale(1) translate(0px, 0px)` },
                     { transform: `translate(-50%, -50%) scale(0) translate(${destX}px, ${destY}px) rotate(360deg)` }
                 ], {
-                    duration: 1000 + Math.random() * 500,
+                    duration: 800 + Math.random() * 400,
                     easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)',
                     fill: 'forwards'
                 });
 
                 setTimeout(() => {
                     particle.remove();
-                }, 1500);
+                }, 1200);
             }
         }
 
-        // 4. Guestbook messages
+        // Rainbow mouse tracker particles
+        function createRainbowSparkle(x, y) {
+            if (Math.random() > 0.18) return;
+
+            let colors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff'];
+            if (activeMascot === 'shiro') {
+                colors = ['#f59e0b', '#fbbf24', '#fef3c7', '#ffedd5'];
+            } else if (activeMascot === 'doraemon') {
+                colors = ['#0284c7', '#38bdf8', '#7dd3fc', '#e0f2fe'];
+            } else if (activeMascot === 'hachuping') {
+                colors = ['#db2777', '#f472b6', '#fbcfe8', '#fdf2f8'];
+            }
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y + window.scrollY}px`;
+            sparkle.style.width = sparkle.style.height = `${Math.random() * 10 + 5}px`;
+            sparkle.style.backgroundColor = randomColor;
+            sparkle.style.boxShadow = `0 0 8px ${randomColor}`;
+
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 600);
+        }
+
+        // Draw magic item from Doraemon pocket list
+        const magicPocketItems = [
+            { icon: '🚁', name: '대나무 헬리콥터 목줄', desc: '이 리드줄을 매면 우리 댕댕이가 안전하게 하늘을 날아올라 정체 없는 산책을 할 수 있어요! (위험: 비바람 주의)' },
+            { icon: '🍪', name: '초코비 개껌', desc: '짱구가 세상에서 제일 탐내는 초코비 모양 강아지용 우유 개껌! 짱구는 입을 대지 마세요!' },
+            { icon: '💖', name: '하츄 하트 목걸이', desc: '반려동물의 사랑스러움 지수를 100배로 올려주는 분홍 하트 빛깔 목걸이츄! 끼우면 하츄핑 댄스를 춘다츄!' },
+            { icon: '🥞', name: '도라야끼 맛 츄르', desc: '도라에몽이 가장 환장하는 팥맛 츄르! 팥향 가득 달콤하고 고소해 고양이들이 대만족합니다.' },
+            { icon: '🛡️', name: '액션가면 댕댕 망토', desc: '정의의 사도 액션가면의 에너지 기운을 빌려 입으면 동네 골목 대장이 될 수 있는 멋쟁이 망토!' },
+            { icon: '🚪', name: '어디로든 문 이동장', desc: '이동장 안에 들어가서 원하는 목적지(동물병원, 공원 등)를 상상하면 바로 그 장소로 워프합니다.' },
+            { icon: '🪄', name: '요술 프린세스 츄르', desc: '마법의 주스처럼 눈이 번쩍 뜨여 영양과 기력을 듬뿍 안겨주는 사랑 요정들의 특별 간식츄!' }
+        ];
+
+        function drawMagicItem() {
+            const card = document.getElementById('item-card');
+            
+            // Random selection
+            const randomItem = magicPocketItems[Math.floor(Math.random() * magicPocketItems.length)];
+            
+            // Load and update DOM
+            document.getElementById('item-icon').innerText = randomItem.icon;
+            document.getElementById('item-name').innerText = randomItem.name;
+            document.getElementById('item-desc').innerText = randomItem.desc;
+
+            // Trigger animation spin
+            const iconEl = document.getElementById('item-icon');
+            iconEl.style.animation = 'none';
+            void iconEl.offsetWidth; // Trigger reflow to restart animation
+            iconEl.style.animation = 'spinItem 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+
+            // Show card
+            card.classList.add('show');
+            
+            // Sparkle sound & burst
+            CuteAudio.playSparkle();
+            const pocketRect = document.querySelector('.pocket-container').getBoundingClientRect();
+            burstConfetti(pocketRect.left + pocketRect.width/2, pocketRect.top + pocketRect.height/2);
+        }
+
+        // Guestbook add message
         function addMessage() {
             const input = document.getElementById('guestbook-input');
             const list = document.getElementById('guestbook-list');
@@ -760,13 +1314,22 @@
 
             if (!text) return;
 
-            // Create new message item
             const item = document.createElement('div');
             item.classList.add('guestbook-item');
 
             const textSpan = document.createElement('span');
             textSpan.classList.add('msg-text');
-            textSpan.innerText = "🐾 " + text;
+            
+            // Append cute ending by active mascot
+            let ending = "🐾 " + text;
+            if (activeMascot === 'shiro') {
+                ending = "🐶 " + text + "앙!";
+            } else if (activeMascot === 'doraemon') {
+                ending = "💙 " + text + "에몽!";
+            } else if (activeMascot === 'hachuping') {
+                ending = "💖 " + text + "츄!";
+            }
+            textSpan.innerText = ending;
 
             const timeSpan = document.createElement('span');
             timeSpan.classList.add('msg-time');
@@ -775,16 +1338,18 @@
             item.appendChild(textSpan);
             item.appendChild(timeSpan);
 
-            // Prepend to list
             list.insertBefore(item, list.firstChild);
-
-            // Clear input
             input.value = "";
 
-            // Magic confetti on submit button
+            CuteAudio.playJump();
             const rect = input.getBoundingClientRect();
             burstConfetti(rect.right, rect.top + rect.height / 2);
         }
+
+        // Initialize floaters on load
+        window.addEventListener('load', () => {
+            updateBackgroundFloaters('pippo');
+        });
     </script>
 </body>
 </html>
