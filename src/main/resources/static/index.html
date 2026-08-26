@@ -54,6 +54,15 @@
             --card-hover-border: #fda4af;
         }
 
+        body.theme-shinchan {
+            --primary-gradient: linear-gradient(45deg, #ef4444 0%, #facc15 100%);
+            --theme-color: #e11d48;
+            --text-color: #1e1b4b;
+            --bg-gradient: linear-gradient(-45deg, #fef2f2, #fef9c3, #ecfeff, #fef2f2);
+            --border-color: #f43f5e;
+            --card-hover-border: #fb7185;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -707,6 +716,7 @@
     <div class="mascot-navigator">
         <button class="nav-btn active" data-id="pippo" data-name="삐뽀" onclick="selectMascot('pippo')">🐶</button>
         <button class="nav-btn" data-id="shiro" data-name="흰둥이" onclick="selectMascot('shiro')">☁️</button>
+        <button class="nav-btn" data-id="shinchan" data-name="짱구" onclick="selectMascot('shinchan')">👦</button>
         <button class="nav-btn" data-id="doraemon" data-name="도라에몽" onclick="selectMascot('doraemon')">🐱</button>
         <button class="nav-btn" data-id="hachuping" data-name="하츄핑" onclick="selectMascot('hachuping')">👑</button>
     </div>
@@ -868,6 +878,46 @@
                     <ellipse cx="136" cy="104" rx="8" ry="4" fill="#fda4af" opacity="0.9" />
                     <!-- Mouth -->
                     <path d="M 97 105 C 99 108, 101 108, 103 105" stroke="#be185d" stroke-width="2" stroke-linecap="round" fill="none" />
+                </svg>
+
+                <!-- 5. Shinchan SVG (짱구) -->
+                <svg id="shinchan-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Body (Red shirt and Yellow pants) -->
+                    <path d="M 75 145 L 60 190 L 140 190 L 125 145 Z" fill="#ef4444" stroke="#2d2d2d" stroke-width="2.5" />
+                    <path d="M 68 180 L 132 180 L 132 195 L 68 195 Z" fill="#facc15" stroke="#2d2d2d" stroke-width="2" />
+                    
+                    <!-- Ears -->
+                    <ellipse cx="46" cy="112" rx="9" ry="11" fill="#fed7aa" stroke="#2d2d2d" stroke-width="2.5" />
+                    <ellipse cx="154" cy="112" rx="9" ry="11" fill="#fed7aa" stroke="#2d2d2d" stroke-width="2.5" />
+                    <path d="M 46 107 Q 50 112, 46 117" stroke="#2d2d2d" stroke-width="1.5" fill="none" />
+                    <path d="M 154 107 Q 150 112, 154 117" stroke="#2d2d2d" stroke-width="1.5" fill="none" />
+
+                    <!-- Chubby Head -->
+                    <path d="M 50 110 C 50 78, 150 78, 150 110 C 150 135, 130 146, 100 146 C 70 146, 50 135, 50 110 Z" fill="#fed7aa" stroke="#2d2d2d" stroke-width="3" />
+                    
+                    <!-- Black Hair -->
+                    <path d="M 50 102 C 50 68, 150 68, 150 102 C 125 88, 75 88, 50 102 Z" fill="#2d2d2d" stroke="#2d2d2d" stroke-width="1" />
+
+                    <!-- Thick Black Eyebrows -->
+                    <path d="M 65 78 Q 78 60, 92 74" stroke="#2d2d2d" stroke-width="7" stroke-linecap="round" fill="none" />
+                    <path d="M 108 74 Q 122 60, 135 78" stroke="#2d2d2d" stroke-width="7" stroke-linecap="round" fill="none" />
+
+                    <!-- Eyes -->
+                    <g class="eyes">
+                        <ellipse cx="80" cy="98" rx="11" ry="13" fill="#ffffff" stroke="#2d2d2d" stroke-width="2.5" />
+                        <ellipse cx="120" cy="98" rx="11" ry="13" fill="#ffffff" stroke="#2d2d2d" stroke-width="2.5" />
+                        <ellipse id="shin-pupil-left" cx="80" cy="98" rx="3.5" ry="5.5" fill="#2d2d2d" />
+                        <circle cx="81.5" cy="95.5" r="1" fill="#ffffff" />
+                        <ellipse id="shin-pupil-right" cx="120" cy="98" rx="3.5" ry="5.5" fill="#2d2d2d" />
+                        <circle cx="121.5" cy="95.5" r="1" fill="#ffffff" />
+                    </g>
+
+                    <!-- Cheeks -->
+                    <ellipse cx="60" cy="122" rx="9" ry="6" fill="#fca5a5" opacity="0.8" />
+                    <ellipse cx="140" cy="122" rx="9" ry="6" fill="#fca5a5" opacity="0.8" />
+
+                    <!-- Smiley Mouth -->
+                    <path d="M 94 122 Q 100 134, 106 122" stroke="#2d2d2d" stroke-width="2.5" stroke-linecap="round" fill="none" />
                 </svg>
 
             </div>
@@ -1065,6 +1115,17 @@
                     "마법의 주머니에서 무엇이 나올지 두근두근 기대되츄! 🎁",
                     "오늘 하루도 나랑 행복하게 보내기로 약속해츄! 하츄하츄~! 👑"
                 ]
+            },
+            shinchan: {
+                theme: 'theme-shinchan',
+                bubble: '천방지축 어리둥절 빙글빙글 돌아가는 짱구의 하루! 예쁜 누나 안녕? 👦',
+                replies: [
+                    "울라울라~ 울라울라~ (짱구가 엉덩이 춤을 춥니다! 🍑)",
+                    "이슬이 누나~ 나랑 같이 산책하러 안 갈래요? 👦💕",
+                    "액션가면~ 빔!!! 와하하하하하! 🛡️⚡",
+                    "초코비 주세요! 초코비~! 짱구는 초코비가 세상에서 제일 좋아! 🦖",
+                    "흰둥아! 솜사탕 개인기 해봐! 앙앙! 🐶"
+                ]
             }
         };
 
@@ -1082,6 +1143,8 @@
                 symbols = ['🚁', '🔔', '🚪', '🥞'];
             } else if (mascot === 'hachuping') {
                 symbols = ['💖', '👑', '🎀', '🪄'];
+            } else if (mascot === 'shinchan') {
+                symbols = ['🦖', '🛡️', '👦', '🐕', '🍫'];
             }
 
             const count = 10;
@@ -1169,6 +1232,13 @@
                 document.getElementById('hachu-pupil-right-2').setAttribute('cx', (125 + moveX * 0.5).toString());
                 document.getElementById('hachu-pupil-right-2').setAttribute('cy', (98 + moveY * 0.5).toString());
             }
+            // 5. Shinchan pupil positioning
+            else if (activeMascot === 'shinchan') {
+                document.getElementById('shin-pupil-left').setAttribute('cx', (80 + moveX).toString());
+                document.getElementById('shin-pupil-left').setAttribute('cy', (98 + moveY).toString());
+                document.getElementById('shin-pupil-right').setAttribute('cx', (120 + moveX).toString());
+                document.getElementById('shin-pupil-right').setAttribute('cy', (98 + moveY).toString());
+            }
 
             // Create trail occasional sparkles
             createRainbowSparkle(e.clientX, e.clientY);
@@ -1204,6 +1274,8 @@
                 colors = ['#0284c7', '#38bdf8', '#7dd3fc', '#e0f2fe', '#ffffff'];
             } else if (activeMascot === 'hachuping') {
                 colors = ['#db2777', '#f472b6', '#fbcfe8', '#fdf2f8', '#ffffff'];
+            } else if (activeMascot === 'shinchan') {
+                colors = ['#ef4444', '#facc15', '#3b82f6', '#ffffff', '#fed7aa'];
             }
 
             for (let i = 0; i < count; i++) {
@@ -1251,6 +1323,8 @@
                 colors = ['#0284c7', '#38bdf8', '#7dd3fc', '#e0f2fe'];
             } else if (activeMascot === 'hachuping') {
                 colors = ['#db2777', '#f472b6', '#fbcfe8', '#fdf2f8'];
+            } else if (activeMascot === 'shinchan') {
+                colors = ['#ef4444', '#facc15', '#3b82f6', '#fed7aa'];
             }
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
@@ -1328,6 +1402,8 @@
                 ending = "💙 " + text + "에몽!";
             } else if (activeMascot === 'hachuping') {
                 ending = "💖 " + text + "츄!";
+            } else if (activeMascot === 'shinchan') {
+                ending = "👦 " + text + " 울라~!";
             }
             textSpan.innerText = ending;
 
