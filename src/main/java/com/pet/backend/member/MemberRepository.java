@@ -1,5 +1,7 @@
 package com.pet.backend.member;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,6 +13,8 @@ import jakarta.persistence.LockModeType;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
+	List<MemberDisplay> findByIdIn(Collection<Long> ids);
+	
 	@Query("select m from Member m where lower(m.email) = :normalizeEmail and m.deletedAt is null")
 	Optional<Member> findActiveByNormalizedEmail(@Param("normalizedEmail") String normalizedEmail);
 
@@ -26,4 +30,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	@Lock(LockModeType.PESSIMISTIC_READ)
 	@Query("select m from Member m where m.id = :id")
 	Optional<Member> findByIdForShare(@Param("id") Long id);
+	
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Query("select m from Member m where m.id = :id and m.deletedAt is null")
+	Optional<Member> findActiveByIdForUpdate(@Param("id") Long id);
 }

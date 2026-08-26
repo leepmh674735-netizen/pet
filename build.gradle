@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.2' // @MockitoBean 지원 및 최신 안정 버전
+	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -17,6 +17,11 @@ repositories {
 	mavenCentral()
 }
 
+// Spring AI BOM — Boot 3.5.x 호환 1.1.8 버전 적용
+ext {
+	set('springAiVersion', '1.1.8')
+}
+
 dependencies {
 	// Web, JPA, Security, Validation, WebSocket
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -25,23 +30,25 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
-	// OAuth2 Client (properties의 Google Login 설정 동작에 필수)
+	// OAuth2 Client (Google 등 소셜 로그인 지원)
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
-	// MyBatis (properties의 mybatis.* 설정 동작에 필수)
+	// MyBatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
 
 	// DB & Cache
 	runtimeOnly 'org.postgresql:postgresql'
-	implementation 'com.github.ben-manes.caffeine:caffeine'
+	implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
 
 	// JWT (0.12.x)
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 
-	// Claude SDK
+	// AI SDK & Spring AI MCP Server
 	implementation 'com.anthropic:anthropic-java:2.52.0'
+	implementation 'org.springframework.ai:spring-ai-starter-mcp-server'
+	implementation 'org.springframework.ai:spring-ai-starter-mcp-server-webmvc'
 
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
@@ -52,7 +59,14 @@ dependencies {
 	// DevTools & Test
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+	}
 }
 
 tasks.named('test') {
