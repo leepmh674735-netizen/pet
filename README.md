@@ -1,14 +1,33 @@
 # 🌈 PetBacked World - Cute Mascot Pet Care & Community 🐾
 
-Welcome to **PetBacked World**! A magical pet care portal redesigned with adorable themes inspired by **Shin-chan (짱구/흰둥이)**, **Doraemon (도라에몽)**, and **Catch! Teenieping (하츄핑)**. Experience interactive mascot animations, dynamic color themes, cute sound effects, and a magical item-drawing game.
+Welcome to **PetBacked World**! 짱구(흰둥이), 도라에몽, 하츄핑 테마로 꾸며진 마법 같은 반려동물 케어 포털입니다. 귀여운 마스코트 애니메이션, 동적 테마 색상 변경, 8비트 복고풍 사운드 효과 및 마법 도구 뽑기 게임을 웹에서 직접 경험해 보세요.
 
 ---
 
-## 🎨 Designed Character Homepage Preview
+## 🎨 마법의 캐릭터 홈페이지 프리뷰 (Homepage Preview)
 
-Here is a preview of our redesigned, animated, and interactive themed homepage!
+새롭게 추가된 **짱구 테마**가 적용된 홈페이지 화면과 기존 디자인 프리뷰입니다!
 
-![PetBacked World Homepage Mockup](petbacked_homepage_mockup.jpg)
+### 👦 신규 추가된 짱구 & 무지개 테마 프리뷰
+![PetBacked World 짱구 테마 프리뷰](petbacked_shinchan_homepage.jpg)
+
+### 🐶 기존 캐릭터 테마 프리뷰
+![PetBacked World 기존 프리뷰](petbacked_homepage_mockup.jpg)
+
+---
+
+## 📹 홈페이지 시각 애니메이션 & 기능 요약 가이드 (Visual & Animation Guide)
+
+홈페이지의 핵심 애니메이션과 동적 기능을 직관적으로 알기 쉽게 설명해 드립니다.
+
+*   **👦 짱구의 송충이 눈썹과 마우스 눈동자 추적 (Eye Tracking)**:
+    화면 내에서 마우스 커서를 움직이면 **삐뽀, 흰둥이, 도라에몽, 하츄핑, 짱구의 눈동자가 실시간으로 커서를 졸졸 따라갑니다.** 마스코트 카드를 클릭하면 짱구의 엉덩이 춤 멘트나 하츄핑의 애교 등 재미있는 캐릭터 대사가 말풍선에 표시됩니다.
+*   **🌈 무지개 테마와 알록달록 클릭 효과**:
+    상단의 5가지 캐릭터 동글이 버튼을 클릭하면 **홈페이지 전체의 배경색 그라데이션, 카드 테두리, 포인트 색상이 즉시 마법처럼 변합니다.** 또한 마우스를 움직이면 반짝이는 무지개 빛깔 꼬리 파티클이 따라다니고, 화면을 클릭할 때마다 각 캐릭터 테마에 어울리는 색상의 별빛 가루가 화려하게 사방으로 흩어집니다.
+*   **🥞 도라에몽의 4차원 주머니 선물 뽑기**:
+    도라에몽의 하얀 마법 주머니를 클릭하면 통통 튀는 모션과 함께 반려동물을 위한 신기한 하이퍼 도구들이 3D 스핀 효과와 함께 튀어나옵니다 (대나무 헬리콥터 리드줄, 초코비 개껌, 어디로든 문 이동장 등).
+*   **🎵 8비트 사운드 신시사이저**:
+    마스코트를 클릭하거나 메뉴를 바꿀 때, 도구를 뽑을 때마다 별도의 오디오 파일 로딩 없이 브라우저 자체의 오디오 엔진이 **복고풍 게임 감성의 8비트 멜로디와 효과음**을 생생하게 연주해 줍니다.
 
 ---
 
