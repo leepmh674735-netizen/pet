@@ -50,6 +50,8 @@ public class SecurityConfig {
 						.requestMatchers("/api/member/signup", "/api/members/login", "/api/members/login/kakao",
 								"/api/members/refresh", "/api/members/logout", "/api/v1/skin/**", "/api/vi/hybrid/**")
 						.permitAll()
+						.requestMatchers("/", "/index.html", "/*.html", "/*.css", "/*.js", "/*.jpg", "/*.png", "/*.gif", "/*.svg", "/favicon.ico")
+						.permitAll()
 
 						.requestMatchers("/ws").permitAll()
 
