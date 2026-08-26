@@ -55,10 +55,10 @@ public class KakaoOAuthClient {
 		MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
 		form.add("grant_type", "authorization_code");
 		form.add("client_id", properties.clientId());
-		form.add("redict_uri", redirectUrl);
+		form.add("redirect_uri", redirectUrl);
 		form.add("code", code);
-		if (properties.cleintSecret() != null && !properties.cleintSecret().isBlank()) {
-			form.add("client_secret", properties.cleintSecret());
+		if (properties.clientSecret() != null && !properties.clientSecret().isBlank()) {
+			form.add("client_secret", properties.clientSecret());
 		}
 		try {
 			JsonNode body = authClient.post().uri("/oauth/token").contentType(MediaType.APPLICATION_FORM_URLENCODED)

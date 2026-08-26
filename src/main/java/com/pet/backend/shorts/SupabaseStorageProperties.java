@@ -2,7 +2,7 @@ package com.pet.backend.shorts;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "suabase")
+@ConfigurationProperties(prefix = "supabase")
 public record SupabaseStorageProperties(
 		String url,
 		String serviceRoleKey,
